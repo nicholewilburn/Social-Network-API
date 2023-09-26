@@ -5,8 +5,9 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/socialDB';
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useFindAndModify: false,
-  useCreateIndex: true,
+  // Remove the following lines:
+  // useFindAndModify: false,
+  // useCreateIndex: true,
 });
 
 mongoose.connection.on('connected', () => {
@@ -22,4 +23,3 @@ mongoose.connection.on('disconnected', () => {
 });
 
 module.exports = mongoose.connection;
-
