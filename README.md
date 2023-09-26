@@ -39,7 +39,7 @@ THEN I am able to successfully create and delete reactions to thoughts and add a
 <a name="testIns"></a>
 ## Tutorial Video
 
-coming soon
+https://drive.google.com/file/d/1TMOGR3qoaYIzh5_AZ7RCjkt7XzKtiwg5/view
 
 <a name="license"></a>
 ## License
