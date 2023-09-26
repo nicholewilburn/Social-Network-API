@@ -33,7 +33,7 @@ router.get('/thoughts/:id', async (req, res) => {
 //     "userId": "5edff358a0fcb779aa7b118b"
 //   }
 // Create a new thought and associate it with a user
-router.post('/api/thoughts', async (req, res) => {
+router.post('/thoughts', async (req, res) => {
   try {
     // Create the new thought
     const newThought = new Thought({
