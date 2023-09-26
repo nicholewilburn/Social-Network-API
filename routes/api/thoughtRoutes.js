@@ -32,20 +32,47 @@ router.get('/thoughts/:id', async (req, res) => {
 //     "username": "lernantino",
 //     "userId": "5edff358a0fcb779aa7b118b"
 //   }
-router.post('/thoughts', async (req, res) => {
+// Create a new thought and associate it with a user
+router.post('/api/thoughts', async (req, res) => {
   try {
-    const thought = await Thought.create(req.body);
+    // Create the new thought
+    const newThought = new Thought({
+      thoughtText: req.body.thoughtText,
+      username: req.body.username,
+    });
 
-    // Push the created thought's _id to the associated user's 'thoughts' array field
-    const user = await User.findById(thought.userId);
-    user.thoughts.push(thought._id);
+    // Save the thought
+    await newThought.save();
+
+    // Update the user's thoughts array with the thought's ID
+    const user = await User.findById(req.body.userId);
+    if (!user) {
+      res.status(404).json({ message: 'User not found' });
+      return;
+    }
+    user.thoughts.push(newThought._id); // Assuming "_id" is the thought's ID
     await user.save();
 
-    res.status(201).json(thought);
+    res.status(201).json(newThought);
   } catch (err) {
     res.status(400).json(err);
   }
 });
+// router.post('/thoughts', async (req, res) => {
+//   try {
+//     const thought = await Thought.create(req.body);
+
+//     // Push the created thought's _id to the associated user's 'thoughts' array field
+//     const user = await User.findById(thought.userId);
+//     user.thoughts.push(thought._id);
+//     await user.save();
+
+//     res.status(201).json(thought);
+//   } catch (err) {
+//     res.status(400).json(err);
+//     console.log(err);
+//   }
+// });
 
 // Route to update a thought by _id
 router.put('/thoughts/:id', async (req, res) => {
